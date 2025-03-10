@@ -1,44 +1,18 @@
-type Address = {
-  street: string;
-  city: string;
-  country: string;
-};
+type UserRole = "guest" | "member" | "admin";
 
-type Person = {
-  name: string;
-  age: number;
-  isStudent: boolean;
-  address?: Address;
-};
-
-let person1 = {
-  name: "Joe",
-  age: 42,
-  isStudent: true,
-};
-
-let person2 = {
-  name: "Jill",
-  age: 66,
-  isStudent: false,
-};
-
-let people: Person[] = [person1, person2];
-
-let ages: number[] = [100, 200];
-
-function displayInfo(person) {
-  console.log(`${person.name} lives at ${person.address?.street}`);
-}
-
-displayInfo(person1);
-
-/*Unions*/
 type User = {
   username: string;
-  role: "guest" | "member" | "admin";
+  id: number;
+  role: UserRole;
 };
 
-type UserRole = "admin" | "member" | "guest";
+const users: User[] = [
+  { id: 1, username: "john_doe", role: "member" },
+  { id: 2, username: "jane_doe", role: "admin" },
+  { id: 3, username: "guest_user", role: "guest" },
+];
 
-let userRole: UserRole = "admin";
+function updateUser(id: any, updates: any) {}
+
+updateUser(1, { username: "new_john_doe" });
+updateUser(3, { role: "admin" });

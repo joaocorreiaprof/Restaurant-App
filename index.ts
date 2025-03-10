@@ -10,22 +10,25 @@ type Order = {
   status: "completed" | "ordered";
 };
 
-const menu: Pizza[] = [
-  { id: 1, name: "Margherita", price: 8 },
-  { id: 2, name: "Peperoni", price: 10 },
-  { id: 3, name: "Hawaiian", price: 10 },
-  { id: 4, name: "Veggie", price: 9 },
-];
-
 let cashInRegister = 100;
 let nextOrderId = 1;
+let nextPizzaId = 1;
+
+const menu: Pizza[] = [
+  { id: nextPizzaId++, name: "Margherita", price: 8 },
+  { id: nextPizzaId++, name: "Peperoni", price: 10 },
+  { id: nextPizzaId++, name: "Hawaiian", price: 10 },
+  { id: nextPizzaId++, name: "Veggie", price: 9 },
+];
+
 const orderQueue: Order[] = [];
 
-function addNewPizza(pizzaObj: Pizza) {
+function addNewPizza(pizzaObj: Pizza): void {
+  pizzaObj.id = nextPizzaId++;
   menu.push(pizzaObj);
 }
 
-function placeOrder(pizzaName: string) {
+function placeOrder(pizzaName: string): Order | undefined {
   const selectedPizza = menu.find((pizzaObj) => pizzaObj.name === pizzaName);
   if (!selectedPizza) {
     console.error(`${pizzaName} does not exist`);
@@ -41,7 +44,7 @@ function placeOrder(pizzaName: string) {
   return newOrder;
 }
 
-function completeOrder(orderId: number) {
+function completeOrder(orderId: number): Order {
   const order = orderQueue.find((order) => order.id === orderId);
   if (!order) {
     console.error(`Order with ID ${orderId} not found`);
@@ -51,20 +54,24 @@ function completeOrder(orderId: number) {
   return order;
 }
 
-function getPizzaDetails(identifier: string | number) {
+export function getPizzaDetails(
+  identifier: string | number
+): Pizza | undefined {
   if (typeof identifier === "string") {
     return menu.find(
       (pizza) =>
         pizza.name.toLocaleLowerCase() === identifier.toLocaleLowerCase()
     );
-  } else {
+  } else if (typeof identifier === "number") {
     return menu.find((pizza) => pizza.id === identifier);
+  } else {
+    throw new TypeError("Parameter `identifier` must be a string or a number ");
   }
 }
 
-addNewPizza({ id: 5, name: "Chicken Bacon Ranch", price: 12 });
-addNewPizza({ id: 6, name: "BBQ", price: 12 });
-addNewPizza({ id: 7, name: "Spicy Sausage", price: 11 });
+addNewPizza({ name: "Chicken Bacon Ranch", price: 12 });
+addNewPizza({ name: "BBQ", price: 12 });
+addNewPizza({ name: "Spicy Sausage", price: 11 });
 
 placeOrder("Chicken Bacon Ranch");
 completeOrder(1);
