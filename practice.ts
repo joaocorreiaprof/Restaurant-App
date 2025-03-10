@@ -17,8 +17,18 @@ let person1 = {
   isStudent: true,
 };
 
+let person2 = {
+  name: "Jill",
+  age: 66,
+  isStudent: false,
+};
+
+let people: Person[] = [person1, person2];
+
+let ages: number[] = [100, 200];
+
 function displayInfo(person) {
-  console.log(`${person.name} lives at ${person.address.street}`);
+  console.log(`${person.name} lives at ${person.address?.street}`);
 }
 
 displayInfo(person1);
