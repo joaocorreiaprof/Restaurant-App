@@ -32,3 +32,13 @@ function displayInfo(person) {
 }
 
 displayInfo(person1);
+
+/*Unions*/
+type User = {
+  username: string;
+  role: "guest" | "member" | "admin";
+};
+
+type UserRole = "admin" | "member" | "guest";
+
+let userRole: UserRole = "admin";
