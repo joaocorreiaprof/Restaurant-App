@@ -58,6 +58,11 @@ function completeOrder(orderId: number): Order {
   return order;
 }
 
+function addToArray<T>(array: T[], item: T): T[] {
+  array.push(item);
+  return array;
+}
+
 export function getPizzaDetails(
   identifier: string | number
 ): Pizza | undefined {
